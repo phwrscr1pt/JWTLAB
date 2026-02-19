@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Hacking Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+        .warning {
+            background: rgba(255, 50, 50, 0.2);
+            border: 1px solid #ff3333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .warning h3 {
+            color: #ff3333;
+            margin-bottom: 5px;
+        }
+        .labs {
+            display: grid;
+            gap: 20px;
+        }
+        .lab-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        .lab-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00ff88;
+            transform: translateY(-2px);
+        }
+        .lab-card h2 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .lab-number {
+            background: #00ff88;
+            color: #1a1a2e;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .lab-card p {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .lab-card a {
+            display: inline-block;
+            background: #00ff88;
+            color: #1a1a2e;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .lab-card a:hover {
+            background: #00cc6a;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+        .difficulty {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .easy { background: #4caf50; color: white; }
+        .medium { background: #ff9800; color: white; }
+        .hard { background: #f44336; color: white; }
+        .tools {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .tools a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+        .tools a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JWT Hacking Workshop</h1>
+            <p class="subtitle">Learn JWT vulnerabilities through hands-on practice</p>
+        </header>
+
+        <div class="warning">
+            <h3>FOR EDUCATIONAL PURPOSES ONLY</h3>
+            <p>This application contains intentional vulnerabilities. Never deploy in production.</p>
+        </div>
+
+        <div class="labs">
+            <div class="lab-card">
+                <h2>
+                    <span class="lab-number">1</span>
+                    Unverified Signature
+                    <span class="difficulty easy">Easy</span>
+                </h2>
+                <p>The server decodes JWT tokens but completely skips signature verification.
+                   Modify the payload to escalate your privileges from "user" to "admin".</p>
+                <a href="/lab1">Start Lab 1</a>
+            </div>
+
+            <div class="lab-card">
+                <h2>
+                    <span class="lab-number">2</span>
+                    None Algorithm Attack
+                    <span class="difficulty easy">Easy</span>
+                </h2>
+                <p>The server accepts the "none" algorithm, which means no signature is required.
+                   Change the algorithm header and remove the signature to forge tokens.</p>
+                <a href="/lab2">Start Lab 2</a>
+            </div>
+
+            <div class="lab-card">
+                <h2>
+                    <span class="lab-number">3</span>
+                    Weak Secret Key
+                    <span class="difficulty medium">Medium</span>
+                </h2>
+                <p>The server uses HS256 with a weak, easily guessable secret key.
+                   Brute-force the secret and sign your own admin token.</p>
+                <a href="/lab3">Start Lab 3</a>
+            </div>
+
+            <div class="lab-card">
+                <h2>
+                    <span class="lab-number">4</span>
+                    KID Path Traversal
+                    <span class="difficulty medium">Medium</span>
+                </h2>
+                <p>The server reads the key file path from the "kid" header without validation.
+                   Exploit path traversal to use a file with known content as the secret.</p>
+                <a href="/lab4">Start Lab 4</a>
+            </div>
+
+            <div class="lab-card">
+                <h2>
+                    <span class="lab-number">5</span>
+                    Algorithm Confusion (RS256 to HS256)
+                    <span class="difficulty hard">Hard</span>
+                </h2>
+                <p>The server expects RS256 but also accepts HS256, using the public key as the HMAC secret.
+                   Exploit this confusion to sign tokens with the publicly available key.</p>
+                <a href="/lab5">Start Lab 5</a>
+            </div>
+        </div>
+
+        <div class="tools">
+            <p>Useful tool: <a href="/decode">JWT Decoder</a></p>
+        </div>
+    </div>
+</body>
+</html>

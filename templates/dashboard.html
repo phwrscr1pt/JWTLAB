@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab {{ lab_num }} - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #00ff88;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .info-label {
+            color: #888;
+            width: 100px;
+        }
+        .info-value {
+            color: #eee;
+        }
+        .role-user {
+            color: #ff9800;
+        }
+        .role-admin {
+            color: #00ff88;
+        }
+        .token-section {
+            margin-top: 30px;
+        }
+        .token-section h2 {
+            color: #aaa;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        .token-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #00ff88;
+        }
+        .challenge {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+        }
+        .challenge h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        .challenge p {
+            color: #aaa;
+        }
+        .tip {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #64b5f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <a href="/" class="back-link">&larr; Back to Labs</a>
+            <h1>Dashboard - Lab {{ lab_num }}</h1>
+
+            <div class="info-box">
+                <div class="info-row">
+                    <span class="info-label">Username:</span>
+                    <span class="info-value">{{ username }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Role:</span>
+                    <span class="info-value role-user">{{ role }}</span>
+                </div>
+            </div>
+
+            <div class="challenge">
+                <h3>Challenge</h3>
+                <p>You are logged in as a regular user. Can you manipulate your JWT token to become an admin?</p>
+            </div>
+
+            <div class="token-section">
+                <h2>Your JWT Token (from cookie):</h2>
+                <div class="token-box">{{ token }}</div>
+            </div>
+
+            <div class="tip">
+                <strong>Tip:</strong> Copy this token, decode it at <a href="https://jwt.io" target="_blank" style="color: #64b5f6;">jwt.io</a>,
+                modify it according to the lab's vulnerability, and replace your cookie with the forged token.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Decoder Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .back-link {
+            display: inline-block;
+            color: #00ff88;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+        .input-section {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        button {
+            padding: 12px 30px;
+            background: #00ff88;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00cc6a;
+        }
+        .output-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            .output-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        .output-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .output-box h2 {
+            color: #888;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        .output-box pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #eee;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .header-color { color: #ff9800; }
+        .payload-color { color: #2196f3; }
+        .signature-color { color: #e91e63; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; Back to Labs</a>
+        <h1>JWT Decoder Tool</h1>
+
+        <div class="input-section">
+            <label>Paste your JWT token:</label>
+            <textarea id="token-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJyb2xlIjoidXNlciJ9.xxx"></textarea>
+            <button onclick="decodeToken()">Decode</button>
+        </div>
+
+        <div class="output-section">
+            <div class="output-box">
+                <h2>Header</h2>
+                <pre id="header-output" class="header-color">-</pre>
+            </div>
+            <div class="output-box">
+                <h2>Payload</h2>
+                <pre id="payload-output" class="payload-color">-</pre>
+            </div>
+        </div>
+
+        <div class="output-box" style="margin-top: 20px;">
+            <h2>Signature (Base64)</h2>
+            <pre id="signature-output" class="signature-color">-</pre>
+        </div>
+    </div>
+
+    <script>
+        function base64UrlDecode(str) {
+            // Add padding if needed
+            str = str.replace(/-/g, '+').replace(/_/g, '/');
+            while (str.length % 4) {
+                str += '=';
+            }
+            return atob(str);
+        }
+
+        function decodeToken() {
+            const token = document.getElementById('token-input').value.trim();
+            const parts = token.split('.');
+
+            if (parts.length < 2) {
+                document.getElementById('header-output').textContent = 'Invalid token format';
+                document.getElementById('payload-output').textContent = 'Invalid token format';
+                document.getElementById('signature-output').textContent = '-';
+                return;
+            }
+
+            try {
+                const header = JSON.parse(base64UrlDecode(parts[0]));
+                document.getElementById('header-output').textContent = JSON.stringify(header, null, 2);
+            } catch (e) {
+                document.getElementById('header-output').textContent = 'Failed to decode header: ' + e.message;
+            }
+
+            try {
+                const payload = JSON.parse(base64UrlDecode(parts[1]));
+                document.getElementById('payload-output').textContent = JSON.stringify(payload, null, 2);
+            } catch (e) {
+                document.getElementById('payload-output').textContent = 'Failed to decode payload: ' + e.message;
+            }
+
+            document.getElementById('signature-output').textContent = parts[2] || '(empty - none algorithm?)';
+        }
+    </script>
+</body>
+</html>

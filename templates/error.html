@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab {{ lab_num }} - Error</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .error-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #ff5555;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .error-box {
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .error-box code {
+            font-family: 'Courier New', monospace;
+            color: #ff8888;
+            word-break: break-all;
+        }
+        .back-link {
+            display: inline-block;
+            color: #00ff88;
+            text-decoration: none;
+            padding: 12px 30px;
+            border: 1px solid #00ff88;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        .back-link:hover {
+            background: #00ff88;
+            color: #1a1a2e;
+        }
+        .tip {
+            margin-top: 20px;
+            color: #888;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">&#9888;</div>
+        <h1>Token Verification Failed</h1>
+
+        <div class="error-box">
+            <code>{{ error }}</code>
+        </div>
+
+        <a href="/lab{{ lab_num }}" class="back-link">Try Again</a>
+        <a href="/" class="back-link">Back to Labs</a>
+
+        <p class="tip">This error is expected when exploiting JWT vulnerabilities. Keep trying!</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  jwt-workshop:
+    build: .
+    container_name: jwt-hacking-workshop
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./keys:/app/keys
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    restart: unless-stopped

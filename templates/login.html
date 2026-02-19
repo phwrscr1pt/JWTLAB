@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab {{ lab_num }} - {{ lab_title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #00ff88;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        .lab-badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #1a1a2e;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 20px;
+        }
+        .description {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .hint {
+            color: #ff9800;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        .hint strong {
+            color: #ffb74d;
+        }
+        .extra-info {
+            color: #2196f3;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input {
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #eee;
+            font-size: 1em;
+        }
+        input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        button {
+            padding: 12px 25px;
+            background: #00ff88;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #00cc6a;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+        .error {
+            color: #ff5555;
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <a href="/" class="back-link">&larr; Back to Labs</a>
+            <span class="lab-badge">Lab {{ lab_num }}</span>
+            <h1>{{ lab_title }}</h1>
+
+            <div class="description">
+                {{ description }}
+            </div>
+
+            {% if hint %}
+            <div class="hint">
+                <strong>Hint:</strong> {{ hint }}
+            </div>
+            {% endif %}
+
+            {% if extra_info %}
+            <div class="extra-info">
+                <strong>Info:</strong> {{ extra_info }}
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

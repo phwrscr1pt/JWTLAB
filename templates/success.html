@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab {{ lab_num }} - Success!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #00ff88;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+        .message {
+            color: #aaa;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .flag-box {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            padding: 30px 50px;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        .flag-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .flag {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5em;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        .back-link {
+            display: inline-block;
+            color: #00ff88;
+            text-decoration: none;
+            padding: 12px 30px;
+            border: 1px solid #00ff88;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #00ff88;
+            color: #1a1a2e;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .confetti span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #00ff88;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti">
+        <script>
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement('span');
+                span.style.left = Math.random() * 100 + 'vw';
+                span.style.animationDelay = Math.random() * 3 + 's';
+                span.style.background = ['#00ff88', '#ff9800', '#2196f3', '#ff5555'][Math.floor(Math.random() * 4)];
+                document.querySelector('.confetti').appendChild(span);
+            }
+        </script>
+    </div>
+
+    <div class="container">
+        <div class="success-icon">&#127942;</div>
+        <h1>Welcome Admin!</h1>
+        <p class="message">{{ message }}</p>
+
+        <div class="flag-box">
+            <div class="flag-label">Your Flag:</div>
+            <div class="flag">{{ flag }}</div>
+        </div>
+
+        <br><br>
+        <a href="/" class="back-link">Try Another Lab</a>
+    </div>
+</body>
+</html>
